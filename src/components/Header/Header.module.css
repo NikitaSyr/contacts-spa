@@ -1,0 +1,26 @@
+.header {
+    background-color: #2B3449;
+}
+
+.header__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 8%;
+    max-height: 125px;
+    margin: 0 0.75%;
+    border-radius: 5px;
+}
+
+.header__column {
+    display: flex;
+    flex: 0 1 33.33%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header__button{
+    white-space: nowrap;
+}
+
