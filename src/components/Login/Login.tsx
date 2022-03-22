@@ -1,12 +1,11 @@
 import React from "react";
-import {Form, Field} from 'react-final-form'
 // import {Input} from "../Common/FormsControls/FormsControls";
 // import {requiredField} from "../../utils/validators/validators";
-import {connect} from "react-redux";
+// import {connect} from "react-redux";
 // import {login} from "../../redux/authReducer";
 // import {Navigate} from "react-router";
 // import f from "./../Common/FormsControls/FormsControls.module.css"
-import s from "./Login.module.css"
+// import s from "./Login.module.css"
 
 
 // const LoginForm = (props) => {
@@ -51,7 +50,7 @@ import s from "./Login.module.css"
 //     )
 // }
 
-const Login = (props) => {
+const Login = () => {
     // const onSubmit = (formData) => {
     //     props.login(formData.email, formData.password, formData.rememberMe, formData.captcha);
     // }

@@ -1,11 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
 import {HashRouter, Routes, Route} from "react-router-dom";
 import Login from "./components/Login/Login";
 import Contacts from "./components/Contacts/Contacts";
+import {useDispatch} from "react-redux";
+import {requestAuthUser} from "./redux/authReducer";
 
 function App() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        (async () => {
+            // setLoading(true);
+            await dispatch((requestAuthUser("typescript@gmail.com", "qwerty")));
+            // setLoading(false);
+        })()
+    }, [dispatch])
+    // const user = useSelector()
     return (
         <HashRouter>
             <div className="app">

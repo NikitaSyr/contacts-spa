@@ -8,7 +8,7 @@ const Header = () => {
             <div className={s.header__row}>
                 <div className={s.header__column}>
                     <NavLink className={`${s.header__button} button`}
-                             to={`cart`}>Login</NavLink>
+                             to={`login`}>Login</NavLink>
                 </div>
             </div>
         </header>
