@@ -1,32 +1,36 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
-import {HashRouter, Routes, Route} from "react-router-dom";
+import {Routes, Route, BrowserRouter} from "react-router-dom";
 import Login from "./components/Login/Login";
 import Contacts from "./components/Contacts/Contacts";
-import {useDispatch} from "react-redux";
-import {requestAuthUser} from "./redux/authReducer";
+import { useSelector} from "react-redux";
+import {getUserAuth} from "./redux/authReducer";
 
 function App() {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        (async () => {
-            // setLoading(true);
-            await dispatch((requestAuthUser("typescript@gmail.com", "qwerty")));
-            // setLoading(false);
-        })()
-    }, [dispatch])
-    // const user = useSelector()
+    // const dispatch = useDispatch();
+    // useEffect(() => {
+    //     (async () => {
+    //         // setLoading(true);
+    //         await dispatch(logIn("typescript@gmail.com", "qwerty"));
+    //         // setLoading(false);
+    //     })()
+    // }, [dispatch])
+
+    const isAuth = useSelector(getUserAuth);
+    // console.log(user)
+    // dispatch(logOut())
+    // console.log(user)
     return (
-        <HashRouter>
+        <BrowserRouter>
             <div className="app">
                 <div className="app__wrapper">
                     <div className="content">
-                        <Header/>
+                        <Header isAuth={isAuth}/>
                         <div className="content__load">
                             <Routes>
-                                <Route path="/login" element={<Login/>}/>
-                                <Route path="/contacts" element={<Contacts/>}/>
+                                <Route path="/login" element={<Login isAuth={isAuth}/>}/>
+                                <Route path="/contacts" element={<Contacts isAuth={isAuth}/>}/>
                                 <Route path="/" element={<div>Welcome to "Takeoff Staff" contacts SPA</div>}/>
                                 <Route path="*" element={<div>404 PAGE NOT FOUND</div>}/>
                             </Routes>
@@ -34,7 +38,7 @@ function App() {
                     </div>
                 </div>
             </div>
-        </HashRouter>
+        </BrowserRouter>
 
     );
 }

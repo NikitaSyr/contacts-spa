@@ -5,3 +5,8 @@ export type UserType = {
     password : string
     isAuth: boolean
 }
+
+export type LogInFormType = {
+    email : string
+    password : string
+}

@@ -13,7 +13,6 @@ const userObjectCreator = (userId: number, login: string, isAuth: boolean) => {
         userId: userId,
         login: login,
         isAuth: isAuth,
-        // errorMessage: errorMessage
     };
 }
 

@@ -1,13 +1,15 @@
-import {FC} from "react";
+import {FC, useEffect} from "react";
 // import {ItemsType} from "../../types/types";
-import ContactItem from "./ContactItem/ContactItem";
+// import ContactItem from "./ContactItem/ContactItem";
 import s from './Contacts.module.css';
+import {useNavigate} from "react-router-dom";
 // import {useDispatch} from "react-redux";
 // import {actions} from "../../redux/itemsReducer";
 
-// type PropsType = {
+type PropsType = {
+    isAuth: boolean
 //     itemsList: Array<ItemsType>
-// }
+}
 
 // "profile" : [
 //     {"id": 0, "name": "Nikita", "status": "Hello there", "image": "https://i.imgur.com/atH8nCi.jpg", "phone": 8998888},
@@ -23,8 +25,8 @@ import s from './Contacts.module.css';
 //     {"id": 10, "name": "User2", "status": "", "image": "", "phone": 834634634}
 // ]
 
-// const Contacts: FC<PropsType> = (props) => {
-const Contacts = () => {
+const Contacts: FC<PropsType> = ({isAuth}) => {
+// const Contacts = () => {
     // const dispatch = useDispatch();
     // const addItemToCartById = (id: number) => {
     //     dispatch(actions.addToCartAC(id))
@@ -34,6 +36,12 @@ const Contacts = () => {
     //     <ContactItem key={item.id} id={item.id} image={item.image} name={item.name} price={item.price}
     //                  addItemToCartById={addItemToCartById}
     //     />)
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!isAuth){
+            return navigate("/login");
+        }
+    },[isAuth, navigate]);
     return (
         <div className={s.contacts}>
             <div className={s.contacts__row}>

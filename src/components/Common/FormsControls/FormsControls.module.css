@@ -1,0 +1,15 @@
+.form__control.error input,
+.form__control.error textarea {
+    border: 1px red solid;
+    font-size: 20px;
+}
+
+.form__control.error span {
+    color: red;
+    font-size: 20px;
+}
+
+.form__summaryError {
+    color: red;
+    font-size: 20px;
+}
