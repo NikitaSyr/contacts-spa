@@ -3,9 +3,11 @@ import authReducer from "./authReducer";
 import thunkMiddleware, {ThunkAction} from "redux-thunk";
 import {persistStore, persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import contactsReducer from "./contactsReducer";
 
 let rootReducer = combineReducers({
     auth: authReducer,
+    contacts: contactsReducer
 })
 
 const persistConfig = {

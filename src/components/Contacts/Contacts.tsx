@@ -1,8 +1,14 @@
-import {FC, useEffect} from "react";
+import {FC, useEffect, useState} from "react";
 // import {ItemsType} from "../../types/types";
 // import ContactItem from "./ContactItem/ContactItem";
 import s from './Contacts.module.css';
 import {useNavigate} from "react-router-dom";
+import ContactItem from "./ContactItem/ContactItem";
+import {useDispatch, useSelector} from "react-redux";
+import {actions, getContactsData, getContactsDataLength} from "../../redux/contactsReducer";
+import {ContactType} from "../../types/types";
+import { requiredField, maxLengthCreator } from "../../utils/validators/validators";
+import AddContactForm from "./ContactForms/AddContactForm";
 // import {useDispatch} from "react-redux";
 // import {actions} from "../../redux/itemsReducer";
 
@@ -25,29 +31,56 @@ type PropsType = {
 //     {"id": 10, "name": "User2", "status": "", "image": "", "phone": 834634634}
 // ]
 
+
+
 const Contacts: FC<PropsType> = ({isAuth}) => {
-// const Contacts = () => {
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     // const addItemToCartById = (id: number) => {
     //     dispatch(actions.addToCartAC(id))
-    // }
-
-    // const catalogElement = props.itemsList.map(item =>
-    //     <ContactItem key={item.id} id={item.id} image={item.image} name={item.name} price={item.price}
-    //                  addItemToCartById={addItemToCartById}
-    //     />)
+    // } incrementIdAC
+    let [addMode, setAddMode] = useState(false);
+    let contactsList = useSelector(getContactsData);
+    let currentContactDataLength = useSelector(getContactsDataLength);
+    const addContact = (contactData: ContactType) => {
+            let {name, surname, image, phone} = contactData
+            dispatch(actions.addContactAC(currentContactDataLength, name, surname, image, phone));
+            dispatch(actions.incrementIdAC(currentContactDataLength));
+            setAddMode(false);
+        }
+    const activateAddMode = () => {
+        setAddMode(true);
+    }
+    // const incrementId = (currentContactDataLength: number) => {
+    //         dispatch(actions.incrementIdAC(currentContactDataLength));
+    //     }
+    const deleteContact = (contactId : number) => {
+        dispatch(actions.deleteContactAC(contactId));
+    }
     const navigate = useNavigate();
     useEffect(() => {
         if (!isAuth){
             return navigate("/login");
         }
     },[isAuth, navigate]);
+    const contactElement = contactsList.map(contact =>
+        <ContactItem key={contact.contactId} contactId={contact.contactId} name={contact.name} surname={contact.surname}
+                     image={contact.image} phone={contact.phone} deleteContact={deleteContact}
+        />)
+
     return (
         <div className={s.contacts}>
             <div className={s.contacts__row}>
-                Contacts
-                {/*{catalogElement}*/}
+                {/*Contacts*/}
+                {contactElement}
             </div>
+            <div className={s.contacts__row}>
+                {addMode
+                ? <AddContactForm addContact={addContact} validators={[requiredField, maxLengthCreator]}/>
+                : <button onClick={() => {activateAddMode()}}>Add contact</button>}
+            </div>
+            {/*<div className={s.contacts__row}>*/}
+            {/*    <AddContactForm addContact={addContact} validators={[requiredField, maxLengthCreator]}/>*/}
+            {/*</div>*/}
         </div>
     )
 }

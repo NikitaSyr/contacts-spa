@@ -10,3 +10,11 @@ export type LogInFormType = {
     email : string
     password : string
 }
+
+export type ContactType = {
+    contactId : number
+    name : string
+    surname : string
+    image : string
+    phone : number
+}
