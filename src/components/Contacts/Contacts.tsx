@@ -7,7 +7,7 @@ import ContactItem from "./ContactItem/ContactItem";
 import {useDispatch, useSelector} from "react-redux";
 import {actions, getContactsData, getContactsDataLength} from "../../redux/contactsReducer";
 import {ContactType} from "../../types/types";
-import { requiredField, maxLengthCreator } from "../../utils/validators/validators";
+import {requiredField, maxLengthCreator } from "../../utils/validators/validators";
 import AddContactForm from "./ContactForms/AddContactForm";
 // import {useDispatch} from "react-redux";
 // import {actions} from "../../redux/itemsReducer";
@@ -42,7 +42,7 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
     let contactsList = useSelector(getContactsData);
     let currentContactDataLength = useSelector(getContactsDataLength);
     const addContact = (contactData: ContactType) => {
-            let {name, surname, image, phone} = contactData
+            let {name, surname, image, phone} = contactData;
             dispatch(actions.addContactAC(currentContactDataLength, name, surname, image, phone));
             dispatch(actions.incrementIdAC(currentContactDataLength));
             setAddMode(false);

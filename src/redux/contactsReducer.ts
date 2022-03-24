@@ -8,17 +8,17 @@ const EDIT_CONTACT = 'contacts/EDIT_CONTACT';
 let initialState = {
     contactsData: [
         // {contactId: null as (number | null), name: null as string | null, surname: null as string | null, image: null as string | null, phone: null as (number | null)}
-        {contactId: 0, name: "Nikita", surname: "Syrtsov", image: "https://i.imgur.com/atH8nCi.jpg", phone: 109988888},
-        {contactId: 1, name: "User3", surname: "", image: "", phone: 1038966507},
-        {contactId: 2, name: "Sasha", surname: "Kim", image: "", phone: 103643463},
-        {contactId: 3, name: "Pasha", surname: "Yakovlev", image: "https://i.imgur.com/uNXkBQW.png", phone: 109998887},
-        {contactId: 4, name: "Masha", surname: "Ivanova", image: "https://i.imgur.com/IGZpijv.jpg", phone: 104536546},
-        {contactId: 5, name: "Dima", surname: "Timofeev", image: "https://i.imgur.com/cO8MgYU.jpg", phone: 106456454},
-        {contactId: 6, name: "Vanya", surname: "Poddubniy", image: "https://i.imgur.com/4vEGMXk.jpg", phone: 10234235},
-        {contactId: 7, name: "Sonya", surname: "Ivuskina", image: "", phone: 103456634},
-        {contactId: 8, name: "Anonymous", surname: "", image: "", phone: 103453468},
-        {contactId: 9, name: "Samurai", surname: "", image: "https://i.imgur.com/Y6PJA6Q.jpg", phone: 106967678},
-        {contactId: 10, name: "User2", surname: "", image: "", phone: 1034634634}
+        {contactId: 0, name: "Nikita", surname: "Syrtsov", image: "https://i.imgur.com/atH8nCi.jpg", phone: "109988888"},
+        {contactId: 1, name: "User3", surname: "", image: "", phone: "1038966507"},
+        {contactId: 2, name: "Sasha", surname: "Kim", image: "", phone: "103643463"},
+        {contactId: 3, name: "Pasha", surname: "Yakovlev", image: "https://i.imgur.com/uNXkBQW.png", phone: "109998887"},
+        {contactId: 4, name: "Masha", surname: "Ivanova", image: "https://i.imgur.com/IGZpijv.jpg", phone: "104536546"},
+        {contactId: 5, name: "Dima", surname: "Timofeev", image: "https://i.imgur.com/cO8MgYU.jpg", phone: "106456454"},
+        {contactId: 6, name: "Vanya", surname: "Poddubniy", image: "https://i.imgur.com/4vEGMXk.jpg", phone: "10234235"},
+        {contactId: 7, name: "Sonya", surname: "Ivuskina", image: "", phone: "103456634"},
+        {contactId: 8, name: "Anonymous", surname: "", image: "", phone: "103453468"},
+        {contactId: 9, name: "Samurai", surname: "", image: "https://i.imgur.com/Y6PJA6Q.jpg", phone: "106967678"},
+        {contactId: 10, name: "User2", surname: "", image: "", phone: "1034634634"}
     ],
     // as Array<ContactType>
     contactsDataLength: 11 as number
@@ -58,22 +58,22 @@ const contactsReducer = (state = initialState, action: ActionsTypes) => {
             return state;
         }
         case EDIT_CONTACT: {
-            let editedContactsData = [...state.contactsData];
-            let id = action.payload.contactId;
-            // let editedContact = {
+            const editedContactsData = [...state.contactsData];
+            const id = action.payload.contactId;
+            // console.log(action.payload.name)
+            // editedContactsData[id] = {
             //     contactId: action.payload.contactId,
             //     name: action.payload.name,
             //     surname: action.payload.surname,
             //     image: action.payload.image,
             //     phone: action.payload.phone,
             // };
-            editedContactsData[id] = {
-                contactId: action.payload.contactId,
-                name: action.payload.name,
-                surname: action.payload.surname,
-                image: action.payload.image,
-                phone: action.payload.phone,
-            };
+            // console.log(editedContactsData[id])
+            editedContactsData[id].name = action.payload.name
+            editedContactsData[id].surname = action.payload.surname
+            editedContactsData[id].image = action.payload.image
+            editedContactsData[id].phone = action.payload.phone
+            // console.log(editedContactsData)
             return {
                 ...state,
                 contactsData: editedContactsData
@@ -86,12 +86,12 @@ const contactsReducer = (state = initialState, action: ActionsTypes) => {
 }
 
 export const actions = {
-    addContactAC: (contactId: number, name: string, surname: string, image: string, phone: number) =>
+    addContactAC: (contactId: number, name: string, surname: string, image: string, phone: string) =>
         ({type: ADD_CONTACT, payload: {contactId, name, surname, image, phone}} as const),
     incrementIdAC: (currentContactDataLength: number) =>
         ({type: INCREMENT_ID, payload: {currentContactDataLength}} as const),
     deleteContactAC: (id : number) => ({type: DELETE_CONTACT, id} as const),
-    editContactAC: (contactId: number, name: string, surname: string, image: string, phone: number) =>
+    editContactAC: (contactId: number, name: string, surname: string, image: string, phone: string) =>
         ({type: EDIT_CONTACT, payload: {contactId, name, surname, image, phone}} as const)
 }
 

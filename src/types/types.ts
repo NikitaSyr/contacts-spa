@@ -16,5 +16,5 @@ export type ContactType = {
     name : string
     surname : string
     image : string
-    phone : number
+    phone : string
 }

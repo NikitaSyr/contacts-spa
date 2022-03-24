@@ -8,10 +8,7 @@ import {Input} from "../../Common/FormsControls/FormsControls";
 type PropsType = {
     addContact: (contactData: ContactType) => void
     // addContact: Function
-    // requiredField: () => void
-    // maxLengthCreator: (value : number) => void
     validators: Array<Function>
-    // incrementId: Function
 }
 
 const AddContactForm: React.FC<PropsType> = ({addContact, validators }) => {
@@ -20,22 +17,23 @@ const AddContactForm: React.FC<PropsType> = ({addContact, validators }) => {
             {({handleSubmit}) => (
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <Field validate={composeValidators(requiredField, maxLengthCreator(50))}
+                        Name: <Field validate={composeValidators(requiredField, maxLengthCreator(50))}
                                component={Input}
                                name="name"/>
                     </div>
                     <div>
-                        <Field validate={maxLengthCreator(50)}
+                        Surname: <Field validate={maxLengthCreator(50)}
                                component={Input}
                                name="surname"/>
                     </div>
                     <div>
-                        <Field validate={maxLengthCreator(500)}
+                        Image: <Field validate={maxLengthCreator(500)}
                                component={Input}
+                               placeholder={"URL link"}
                                name="image"/>
                     </div>
                     <div>
-                        <Field validate={composeValidators(requiredField, maxLengthCreator(12))}
+                        Phone number: <Field validate={composeValidators(requiredField, maxLengthCreator(12))}
                                component={Input}
                                name="phone"/>
                     </div>
