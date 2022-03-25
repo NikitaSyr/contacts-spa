@@ -34,7 +34,7 @@ const ContactItem: React.FC<PropsType> = ({contactId, name, surname, image, phon
         <div className={s.contacts__item}>
             {editMode
             ? <EditContactForm editContact={editContact} validators={[requiredField, maxLengthCreator]}
-                               name={name} surname={surname} image={image} phone={phone}/>
+                               name={name} surname={surname} image={image} phone={phone} contactId={contactId}/>
             : <>
                     <div>{name}</div>
                     <div>{surname}</div>
@@ -47,15 +47,14 @@ const ContactItem: React.FC<PropsType> = ({contactId, name, surname, image, phon
                         >Edit contact
                         </button>
                     </div>
-                    <div>
-                        <button onClick={() => {
-                            deleteContact(contactId)
-                        }}
-                        >Delete contact
-                        </button>
-                    </div>
                 </>}
-
+            <div>
+                <button onClick={() => {
+                    deleteContact(contactId)
+                }}
+                >Delete contact
+                </button>
+            </div>
         </div>
     )
 }

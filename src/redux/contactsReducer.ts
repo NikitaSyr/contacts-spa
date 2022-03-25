@@ -52,26 +52,30 @@ const contactsReducer = (state = initialState, action: ActionsTypes) => {
                 return {
                     ...state,
                     contactsData: newContactsData
-                    // contactsData: state.contactsData.filter(p => p.contactId !== action.id)
                 }
             }
             return state;
         }
         case EDIT_CONTACT: {
+
+            const id = state.contactsData.findIndex(contact => contact.contactId === action.payload.contactId);
             const editedContactsData = [...state.contactsData];
-            const id = action.payload.contactId;
-            editedContactsData[id] = {
-                contactId: action.payload.contactId,
-                name: action.payload.name,
-                surname: action.payload.surname,
-                image: action.payload.image,
-                phone: action.payload.phone,
-            };
+            // const editedContactsData = state.contactsData;
+            // const id = action.payload.contactId;
+            // console.log(id)
+            // editedContactsData[id] = {
+            //     contactId: action.payload.contactId,
+            //     name: action.payload.name,
+            //     surname: action.payload.surname,
+            //     image: action.payload.image,
+            //     phone: action.payload.phone,
+            // };
             // console.log(editedContactsData[id])
-            // editedContactsData[id].name = action.payload.name
-            // editedContactsData[id].surname = action.payload.surname
-            // editedContactsData[id].image = action.payload.image
-            // editedContactsData[id].phone = action.payload.phone
+            // editedContactsData[id].contactId = action.payload.contactId
+            editedContactsData[id].name = action.payload.name
+            editedContactsData[id].surname = action.payload.surname
+            editedContactsData[id].image = action.payload.image
+            editedContactsData[id].phone = action.payload.phone
             // console.log(editedContactsData)
             return {
                 ...state,

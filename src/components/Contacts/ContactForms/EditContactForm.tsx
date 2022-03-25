@@ -8,17 +8,24 @@ import {Input} from "../../Common/FormsControls/FormsControls";
 type PropsType = {
     editContact: (contactData: ContactType) => void
     validators: Array<Function>
+    contactId: number
     name: string
     surname: string
     image: string
     phone: string
 }
 
-const EditContactForm: React.FC<PropsType> = ({editContact, validators, name, surname, image, phone}) => {
+const EditContactForm: React.FC<PropsType> = ({editContact, validators, contactId, name, surname, image, phone}) => {
     return (
         <Form onSubmit={editContact} validators={validators}>
             {({handleSubmit}) => (
                 <form onSubmit={handleSubmit}>
+                    {/*Костыль*/}
+                    <div style={{display: 'none' }}><Field initialValue={contactId}
+                                                        component={Input}
+                                                        name="contactId"/>
+                    </div>
+                    {/*Костыль*/}
                     <div>
                         Name: <Field validate={composeValidators(requiredField, maxLengthCreator(40))}
                                      component={Input}

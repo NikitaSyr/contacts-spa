@@ -38,8 +38,8 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
     // const addItemToCartById = (id: number) => {
     //     dispatch(actions.addToCartAC(id))
     // } incrementIdAC
-    let [addMode, setAddMode] = useState(false);
-    let [searchMode, setSearchMode] = useState(false);
+    let [addMode, setAddMode] = useState(false as boolean);
+    let [searchMode, setSearchMode] = useState(false as boolean);
     let contactsList = useSelector(getContactsData);
     let currentContactDataLength = useSelector(getContactsDataLength);
     const addContact = (contactData: ContactType) => {
@@ -81,7 +81,7 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
             <div className={s.contacts__row}>
                 {searchMode
                     // ? <AddContactForm addContact={addContact} validators={[requiredField, maxLengthCreator]}/>
-                    ? <SearchContactForm contactsList={contactsList} currentContactDataLength={currentContactDataLength}/>
+                    ? <SearchContactForm contactsList={contactsList} currentContactDataLength={currentContactDataLength} setSearchMode={setSearchMode}/>
                     : <button onClick={() => {
                         activateMode(setSearchMode)
                     }}>Search</button>}
