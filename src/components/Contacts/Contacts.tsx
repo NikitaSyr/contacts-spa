@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 // import {ItemsType} from "../../types/types";
 // import ContactItem from "./ContactItem/ContactItem";
 import s from './Contacts.module.css';
@@ -15,7 +15,6 @@ import SearchContactForm from "./ContactForms/SearchContactForm";
 
 type PropsType = {
     isAuth: boolean
-//     itemsList: Array<ItemsType>
 }
 
 // "profile" : [
@@ -39,9 +38,12 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
     //     dispatch(actions.addToCartAC(id))
     // } incrementIdAC
     let [addMode, setAddMode] = useState(false as boolean);
-    let [searchMode, setSearchMode] = useState(false as boolean);
+    // let [searchMode, setSearchMode] = useState(false as boolean);
+    let [searchTerm, setSearchTerm] = useState("" as string);
+
     let contactsList = useSelector(getContactsData);
     let currentContactDataLength = useSelector(getContactsDataLength);
+    let [foundContactList, setFoundContactList] = useState([] as Array<ContactType>);
     const addContact = (contactData: ContactType) => {
         let {name, surname, image, phone} = contactData;
         dispatch(actions.addContactAC(currentContactDataLength, name, surname, image, phone));
@@ -60,17 +62,106 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
             return navigate("/login");
         }
     }, [isAuth, navigate]);
+
+    const searchFunction = (contactsList: Array<ContactType>, searchTerm: string) => {
+        let names = contactsList.map(el => el.name);
+        let surnames = contactsList.map(el => el.surname);
+        let phones = contactsList.map(el => el.phone);
+        let localContactIdArray: Array<number> = [];
+        let filteredContactsList = [];
+        // console.log(currentContactDataLength)
+        for (let i = 0; i <= currentContactDataLength; i++) {
+            const searchInArrayFunction = (arrayToSearch: Array<string>) => {
+                if (arrayToSearch[i]) {
+                    if (arrayToSearch[i].toLowerCase().includes(searchTerm.toLowerCase())) {
+                        if (!localContactIdArray.includes(i)) {
+                            localContactIdArray.push(i)
+                        }
+                    }
+                }
+            }
+            searchInArrayFunction(names);
+            searchInArrayFunction(surnames);
+            searchInArrayFunction(phones);
+            // if (names[i]) {
+            //     if (names[i].toLowerCase().includes(searchTerm.toLowerCase())) {
+            //         if (!localContactIdArray.includes(i)) {
+            //             localContactIdArray.push(i)
+            //         }
+            //     }
+            // }
+            // if (surnames[i]) {
+            //     if (names[i].toLowerCase().includes(searchTerm.toLowerCase())) {
+            //         if (!localContactIdArray.includes(i)) {
+            //             localContactIdArray.push(i)
+            //         }
+            //     }
+            // }
+            // if (phones[i]) {
+            //     if (phones[i].toLowerCase().includes(searchTerm.toLowerCase())) {
+            //         if (!localContactIdArray.includes(i)) {
+            //             localContactIdArray.push(i)
+            //         }
+            //     }
+            // }
+            if (contactsList[i]) {
+                // console.log("Первый уровень")
+                if (localContactIdArray.includes(contactsList[i].contactId)) {
+                    // console.log("Второй уровень")
+                    filteredContactsList.push(contactsList[i]);
+                }
+            }
+        }
+        // console.log(filteredContactsList);
+        setFoundContactList(filteredContactsList);
+    }
+    // console.log(contactsList[0].contactId)
+    // console.log(foundContactIdArray)
+
+    // foundContactIdArray.includes(contact.contactId)
+    // const searchedContactById = ()
+
+    const filteredContactElement = foundContactList.map(contact =>
+        // Сравнить
+    <ContactItem key={contact.contactId} contactId={contact.contactId} name={contact.name} surname={contact.surname}
+                  image={contact.image} phone={contact.phone} deleteContact={deleteContact}
+    />)
     const contactElement = contactsList.map(contact =>
         <ContactItem key={contact.contactId} contactId={contact.contactId} name={contact.name} surname={contact.surname}
                      image={contact.image} phone={contact.phone} deleteContact={deleteContact}
         />)
-
+    // console.log(contactElement[0].props.contactId)
+    const onSearchTermChange = (e: { currentTarget: HTMLInputElement }) => {
+        let currentInput = e.currentTarget.value;
+        setSearchTerm(currentInput);
+        searchFunction(contactsList, currentInput)
+    }
     return (
         <div className={s.contacts}>
-            <div className={s.contacts__row}>
-                {/*Contacts*/}
-                {contactElement}
+            <div>
+                <input
+                    onChange={onSearchTermChange}
+                    autoFocus={true}
+                    type="text"
+                    value={searchTerm}
+                />
+                <button onClick={() => {
+                    setSearchTerm("")
+                }
+                }>Cancel search
+                </button>
             </div>
+            <div className={s.contacts__row}>
+                {(searchTerm.length === 0)
+                    ? <div>
+                        {contactElement}
+                        </div>
+                    : <div>
+                        {filteredContactElement}
+                    </div>
+                }
+            </div>
+
             <div className={s.contacts__row}>
                 {addMode
                     ? <AddContactForm addContact={addContact} validators={[requiredField, maxLengthCreator]}/>
@@ -78,14 +169,16 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
                         activateMode(setAddMode)
                     }}>Add contact</button>}
             </div>
-            <div className={s.contacts__row}>
-                {searchMode
-                    // ? <AddContactForm addContact={addContact} validators={[requiredField, maxLengthCreator]}/>
-                    ? <SearchContactForm contactsList={contactsList} currentContactDataLength={currentContactDataLength} setSearchMode={setSearchMode}/>
-                    : <button onClick={() => {
-                        activateMode(setSearchMode)
-                    }}>Search</button>}
-            </div>
+
+
+            {/*<div className={s.contacts__row}>*/}
+            {/*    {searchMode*/}
+            {/*        // ? <AddContactForm addContact={addContact} validators={[requiredField, maxLengthCreator]}/>*/}
+            {/*        ? <SearchContactForm contactsList={contactsList} currentContactDataLength={currentContactDataLength} setSearchMode={setSearchMode}/>*/}
+            {/*        : <button onClick={() => {*/}
+            {/*            activateMode(setSearchMode)*/}
+            {/*        }}>Search</button>}*/}
+            {/*</div>*/}
         </div>
     )
 }
