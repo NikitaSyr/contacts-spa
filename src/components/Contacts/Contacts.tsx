@@ -7,8 +7,9 @@ import ContactItem from "./ContactItem/ContactItem";
 import {useDispatch, useSelector} from "react-redux";
 import {actions, getContactsData, getContactsDataLength} from "../../redux/contactsReducer";
 import {ContactType} from "../../types/types";
-import {requiredField, maxLengthCreator } from "../../utils/validators/validators";
+import {requiredField, maxLengthCreator} from "../../utils/validators/validators";
 import AddContactForm from "./ContactForms/AddContactForm";
+import SearchContactForm from "./ContactForms/SearchContactForm";
 // import {useDispatch} from "react-redux";
 // import {actions} from "../../redux/itemsReducer";
 
@@ -32,36 +33,33 @@ type PropsType = {
 // ]
 
 
-
 const Contacts: FC<PropsType> = ({isAuth}) => {
     const dispatch = useDispatch();
     // const addItemToCartById = (id: number) => {
     //     dispatch(actions.addToCartAC(id))
     // } incrementIdAC
     let [addMode, setAddMode] = useState(false);
+    let [searchMode, setSearchMode] = useState(false);
     let contactsList = useSelector(getContactsData);
     let currentContactDataLength = useSelector(getContactsDataLength);
     const addContact = (contactData: ContactType) => {
-            let {name, surname, image, phone} = contactData;
-            dispatch(actions.addContactAC(currentContactDataLength, name, surname, image, phone));
-            dispatch(actions.incrementIdAC(currentContactDataLength));
-            setAddMode(false);
-        }
-    const activateAddMode = () => {
-        setAddMode(true);
+        let {name, surname, image, phone} = contactData;
+        dispatch(actions.addContactAC(currentContactDataLength, name, surname, image, phone));
+        dispatch(actions.incrementIdAC(currentContactDataLength));
+        setAddMode(false);
     }
-    // const incrementId = (currentContactDataLength: number) => {
-    //         dispatch(actions.incrementIdAC(currentContactDataLength));
-    //     }
-    const deleteContact = (contactId : number) => {
+    const activateMode = (setter: Function) => {
+        setter(true);
+    }
+    const deleteContact = (contactId: number) => {
         dispatch(actions.deleteContactAC(contactId));
     }
     const navigate = useNavigate();
     useEffect(() => {
-        if (!isAuth){
+        if (!isAuth) {
             return navigate("/login");
         }
-    },[isAuth, navigate]);
+    }, [isAuth, navigate]);
     const contactElement = contactsList.map(contact =>
         <ContactItem key={contact.contactId} contactId={contact.contactId} name={contact.name} surname={contact.surname}
                      image={contact.image} phone={contact.phone} deleteContact={deleteContact}
@@ -75,12 +73,19 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
             </div>
             <div className={s.contacts__row}>
                 {addMode
-                ? <AddContactForm addContact={addContact} validators={[requiredField, maxLengthCreator]}/>
-                : <button onClick={() => {activateAddMode()}}>Add contact</button>}
+                    ? <AddContactForm addContact={addContact} validators={[requiredField, maxLengthCreator]}/>
+                    : <button onClick={() => {
+                        activateMode(setAddMode)
+                    }}>Add contact</button>}
             </div>
-            {/*<div className={s.contacts__row}>*/}
-            {/*    <AddContactForm addContact={addContact} validators={[requiredField, maxLengthCreator]}/>*/}
-            {/*</div>*/}
+            <div className={s.contacts__row}>
+                {searchMode
+                    // ? <AddContactForm addContact={addContact} validators={[requiredField, maxLengthCreator]}/>
+                    ? <SearchContactForm contactsList={contactsList} currentContactDataLength={currentContactDataLength}/>
+                    : <button onClick={() => {
+                        activateMode(setSearchMode)
+                    }}>Search</button>}
+            </div>
         </div>
     )
 }

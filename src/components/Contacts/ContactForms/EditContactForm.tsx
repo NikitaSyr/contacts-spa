@@ -8,32 +8,25 @@ import {Input} from "../../Common/FormsControls/FormsControls";
 type PropsType = {
     editContact: (contactData: ContactType) => void
     validators: Array<Function>
-    contactId: number
     name: string
     surname: string
     image: string
     phone: string
 }
 
-const EditContactForm: React.FC<PropsType> = ({editContact, validators, contactId, name, surname, image, phone}) => {
-
+const EditContactForm: React.FC<PropsType> = ({editContact, validators, name, surname, image, phone}) => {
     return (
-        <Form onSubmit={editContact} validators={validators}
-              // id={contactId.toString()}
-        >
+        <Form onSubmit={editContact} validators={validators}>
             {({handleSubmit}) => (
                 <form onSubmit={handleSubmit}>
-                    <div style={{display: 'none' }}><Field initialValue={contactId}
-                              component={Input}
-                              name="contactId"/></div>
                     <div>
-                        Name: <Field validate={composeValidators(requiredField, maxLengthCreator(50))}
+                        Name: <Field validate={composeValidators(requiredField, maxLengthCreator(40))}
                                      component={Input}
                                      initialValue={name}
                                      name="name"/>
                     </div>
                     <div>
-                        Surname: <Field validate={maxLengthCreator(50)}
+                        Surname: <Field validate={maxLengthCreator(40)}
                                         component={Input}
                                         initialValue={surname}
                                         name="surname"/>
@@ -46,7 +39,7 @@ const EditContactForm: React.FC<PropsType> = ({editContact, validators, contactI
                                       name="image"/>
                     </div>
                     <div>
-                        Phone number: <Field validate={composeValidators(requiredField, maxLengthCreator(12))}
+                        Phone number: <Field validate={composeValidators(requiredField, maxLengthCreator(15))}
                                              component={Input}
                                              initialValue={phone}
                                              name="phone"/>

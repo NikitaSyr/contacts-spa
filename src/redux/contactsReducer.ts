@@ -60,19 +60,18 @@ const contactsReducer = (state = initialState, action: ActionsTypes) => {
         case EDIT_CONTACT: {
             const editedContactsData = [...state.contactsData];
             const id = action.payload.contactId;
-            // console.log(action.payload.name)
-            // editedContactsData[id] = {
-            //     contactId: action.payload.contactId,
-            //     name: action.payload.name,
-            //     surname: action.payload.surname,
-            //     image: action.payload.image,
-            //     phone: action.payload.phone,
-            // };
+            editedContactsData[id] = {
+                contactId: action.payload.contactId,
+                name: action.payload.name,
+                surname: action.payload.surname,
+                image: action.payload.image,
+                phone: action.payload.phone,
+            };
             // console.log(editedContactsData[id])
-            editedContactsData[id].name = action.payload.name
-            editedContactsData[id].surname = action.payload.surname
-            editedContactsData[id].image = action.payload.image
-            editedContactsData[id].phone = action.payload.phone
+            // editedContactsData[id].name = action.payload.name
+            // editedContactsData[id].surname = action.payload.surname
+            // editedContactsData[id].image = action.payload.image
+            // editedContactsData[id].phone = action.payload.phone
             // console.log(editedContactsData)
             return {
                 ...state,

@@ -26,17 +26,15 @@ const ContactItem: React.FC<PropsType> = ({contactId, name, surname, image, phon
         setEditMode(true);
     }
     const editContact = (contactData: ContactType) => {
-        let {contactId, name, surname, image, phone} = contactData;
-        console.log(contactData);
+        let {name, surname, image, phone} = contactData;
         dispatch(actions.editContactAC(contactId, name, surname, image, phone));
         setEditMode(false);
     }
     return (
         <div className={s.contacts__item}>
-            {/*<div>{contactId}</div>*/}
             {editMode
             ? <EditContactForm editContact={editContact} validators={[requiredField, maxLengthCreator]}
-                               name={name} surname={surname} image={image} phone={phone} contactId={contactId}/>
+                               name={name} surname={surname} image={image} phone={phone}/>
             : <>
                     <div>{name}</div>
                     <div>{surname}</div>

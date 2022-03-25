@@ -33,7 +33,7 @@ const AddContactForm: React.FC<PropsType> = ({addContact, validators }) => {
                                name="image"/>
                     </div>
                     <div>
-                        Phone number: <Field validate={composeValidators(requiredField, maxLengthCreator(12))}
+                        Phone number: <Field validate={composeValidators(requiredField, maxLengthCreator(15))}
                                component={Input}
                                name="phone"/>
                     </div>
