@@ -34,12 +34,13 @@ type PropsType = {
 
 const Contacts: FC<PropsType> = ({isAuth}) => {
     const dispatch = useDispatch();
-    // const addItemToCartById = (id: number) => {
-    //     dispatch(actions.addToCartAC(id))
-    // } incrementIdAC
     let [addMode, setAddMode] = useState(false as boolean);
     // let [searchMode, setSearchMode] = useState(false as boolean);
     let [searchTerm, setSearchTerm] = useState("" as string);
+
+    // useEffect(() => {
+    //     setSearchTerm(searchTerm);
+    // }, [searchTerm]);
 
     let contactsList = useSelector(getContactsData);
     let currentContactDataLength = useSelector(getContactsDataLength);
@@ -55,6 +56,25 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
     }
     const deleteContact = (contactId: number) => {
         dispatch(actions.deleteContactAC(contactId));
+
+        // ДИЧЬ
+
+        // {names.filter(name => name.includes('J')).map(filteredName => (
+        // let newContactsData = contactsList.filter(item => action.id !== item.contactId)
+        let foundAndDeletedContactList = foundContactList.filter(item => {
+            // console.log(item.contactId)
+            // console.log(contactsList[contactId])
+            if (contactsList[contactId]) {
+                // console.log(contactsList[item])
+                return item.contactId !== contactsList[contactId].contactId;
+            }
+            return false
+
+        })
+        // console.log(foundAndDeletedContactList)
+        setFoundContactList(foundAndDeletedContactList);
+
+        // ДИЧЬ
     }
     const navigate = useNavigate();
     useEffect(() => {
@@ -64,6 +84,9 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
     }, [isAuth, navigate]);
 
     const searchFunction = (contactsList: Array<ContactType>, searchTerm: string) => {
+        // const contactsListMapFunction = (subObjectArray: string[], subObject: string) => {
+        //     subObjectArray = contactsList.map(el => el.subObject);
+        // }
         let names = contactsList.map(el => el.name);
         let surnames = contactsList.map(el => el.surname);
         let phones = contactsList.map(el => el.phone);
@@ -83,29 +106,21 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
             searchInArrayFunction(names);
             searchInArrayFunction(surnames);
             searchInArrayFunction(phones);
-            // if (names[i]) {
-            //     if (names[i].toLowerCase().includes(searchTerm.toLowerCase())) {
-            //         if (!localContactIdArray.includes(i)) {
-            //             localContactIdArray.push(i)
-            //         }
+            // if (contactsList[i]) {
+            //     // console.log("Первый уровень")
+            //     console.log(localContactIdArray)
+            //     console.log(contactsList[i].contactId)
+            //     if (localContactIdArray.includes(contactsList[i].contactId)) {
+            //         // console.log("Второй уровень")
+            //         filteredContactsList.push(contactsList[i]);
             //     }
             // }
-            // if (surnames[i]) {
-            //     if (names[i].toLowerCase().includes(searchTerm.toLowerCase())) {
-            //         if (!localContactIdArray.includes(i)) {
-            //             localContactIdArray.push(i)
-            //         }
-            //     }
-            // }
-            // if (phones[i]) {
-            //     if (phones[i].toLowerCase().includes(searchTerm.toLowerCase())) {
-            //         if (!localContactIdArray.includes(i)) {
-            //             localContactIdArray.push(i)
-            //         }
-            //     }
-            // }
+        }
+        for (let i = 0; i <= currentContactDataLength; i++) {
             if (contactsList[i]) {
                 // console.log("Первый уровень")
+                // console.log(localContactIdArray)
+                // console.log(contactsList[i].contactId)
                 if (localContactIdArray.includes(contactsList[i].contactId)) {
                     // console.log("Второй уровень")
                     filteredContactsList.push(contactsList[i]);
