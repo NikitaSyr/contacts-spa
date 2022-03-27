@@ -6,21 +6,10 @@ import Login from "./components/Login/Login";
 import Contacts from "./components/Contacts/Contacts";
 import { useSelector} from "react-redux";
 import {getUserAuth} from "./redux/authReducer";
+import 'antd/dist/antd.css';
 
 function App() {
-    // const dispatch = useDispatch();
-    // useEffect(() => {
-    //     (async () => {
-    //         // setLoading(true);
-    //         await dispatch(logIn("typescript@gmail.com", "qwerty"));
-    //         // setLoading(false);
-    //     })()
-    // }, [dispatch])
-
     const isAuth = useSelector(getUserAuth);
-    // console.log(user)
-    // dispatch(logOut())
-    // console.log(user)
     return (
         <BrowserRouter>
             <div className="app">

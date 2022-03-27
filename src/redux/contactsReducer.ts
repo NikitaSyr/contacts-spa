@@ -18,17 +18,17 @@ interface State {
 
 let initialState: State = {
     contactsData: [
-        // {contactId: 0, name:. "Nikita", surname: "Syrtsov", image: "https://i.imgur.com/atH8nCi.jpg", phone: "109988888"},
-        // {contactId: 1, name: "User3", surname: "", image: "", phone: "1038966507"},
-        // {contactId: 2, name: "Sasha", surname: "Kim", image: "", phone: "103643463"},
-        // {contactId: 3, name: "Pasha", surname: "Yakovlev", image: "https://i.imgur.com/uNXkBQW.png", phone: "109998887"},
-        // {contactId: 4, name: "Masha", surname: "Ivanova", image: "https://i.imgur.com/IGZpijv.jpg", phone: "104536546"},
-        // {contactId: 5, name: "Dima", surname: "Timofeev", image: "https://i.imgur.com/cO8MgYU.jpg", phone: "106456454"},
-        // {contactId: 6, name: "Vanya", surname: "Poddubniy", image: "https://i.imgur.com/4vEGMXk.jpg", phone: "10234235"},
-        // {contactId: 7, name: "Sonya", surname: "Ivuskina", image: "", phone: "103456634"},
-        // {contactId: 8, name: "Anonymous", surname: "", image: "", phone: "103453468"},
-        // {contactId: 9, name: "Samurai", surname: "", image: "https://i.imgur.com/Y6PJA6Q.jpg", phone: "106967678"},
-        // {contactId: 10, name: "User2", surname: "", image: "", phone: "1034634634"}
+        {contactId: 0, name: "Nikita", surname: "Syrtsov", image: "https://i.imgur.com/atH8nCi.jpg", phone: "109988888"},
+        {contactId: 1, name: "User3", surname: "", image: "", phone: "1038966507"},
+        {contactId: 2, name: "Sasha", surname: "Kim", image: "", phone: "103643463"},
+        {contactId: 3, name: "Pasha", surname: "Yakovlev", image: "https://i.imgur.com/uNXkBQW.png", phone: "109998887"},
+        {contactId: 4, name: "Masha", surname: "Ivanova", image: "https://i.imgur.com/IGZpijv.jpg", phone: "104536546"},
+        {contactId: 5, name: "Dima", surname: "Timofeev", image: "https://i.imgur.com/cO8MgYU.jpg", phone: "106456454"},
+        {contactId: 6, name: "Vanya", surname: "Poddubniy", image: "https://i.imgur.com/4vEGMXk.jpg", phone: "10234235"},
+        {contactId: 7, name: "Sonya", surname: "Ivuskina", image: "", phone: "103456634"},
+        {contactId: 8, name: "Anonymous", surname: "", image: "", phone: "103453468"},
+        {contactId: 9, name: "Samurai", surname: "", image: "https://i.imgur.com/Y6PJA6Q.jpg", phone: "106967678"},
+        {contactId: 10, name: "User2", surname: "", image: "", phone: "1034634634"}
     ],
 };
 
@@ -46,7 +46,6 @@ const contactsReducer = (state = initialState, action: ActionsTypes) => {
                 ...state,
                 contactsData: newContactsData
             }
-            return state;
         }
         case EDIT_CONTACT: {
             const {contactId, name, surname, image, phone} = action.payload

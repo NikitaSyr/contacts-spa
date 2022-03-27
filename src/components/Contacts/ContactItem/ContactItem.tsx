@@ -32,7 +32,7 @@ const ContactItem: React.FC<PropsType> = ({contactId, name, surname, image, phon
         <div className={s.contacts__item}>
             {editMode
             ? <EditContactForm editContact={editContact} validators={[requiredField, maxLengthCreator]}
-                               name={name} surname={surname} image={image} phone={phone} contactId={contactId}/>
+                               name={name} surname={surname} image={image} phone={phone}/>
             : <>
                     <div>{name}</div>
                     <div>{surname}</div>
