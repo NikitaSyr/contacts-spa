@@ -1,13 +1,14 @@
 .header {
     background-color: #2B3449;
+    border-bottom-right-radius: 7px;
+    border-bottom-left-radius: 7px;
 }
 
 .header__row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 8%;
-    max-height: 125px;
+    height: 50px;
     margin: 0 0.75%;
     border-radius: 5px;
 }
@@ -21,6 +22,9 @@
 }
 
 .header__button{
-    white-space: nowrap;
 }
 
+.header__info{
+    white-space: nowrap;
+    color: #FEFEFE;
+}

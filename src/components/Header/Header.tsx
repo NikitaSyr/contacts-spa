@@ -1,8 +1,8 @@
 import s from './Header.module.css';
 import React from "react";
-import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getCurrentUserLogin, logOut} from "../../redux/authReducer";
+import {Button} from "antd";
 
 type PropsType = {
     isAuth: boolean
@@ -19,17 +19,13 @@ const Header: React.FC<PropsType> = ({isAuth}) => {
             <div className={s.header__row}>
                 <div className={s.header__column}>
                     {isAuth &&
-                        <NavLink className={`${s.header__button} button`}
-                                        to={`contacts`}>Contacts</NavLink>}
+                        <Button href={'contacts'} className={s.header__button}>Contacts</Button>}
                 </div>
                 <div className={s.header__column}>
                     {isAuth
-                    ? <div>{userLogin} - <button onClick={onLogOut}
-                                                 className={`${s.header__button} button`}
-                        >Logout</button></div>
-                    : <NavLink className={`${s.header__button} button`}
-                               to={`login`}>Login</NavLink>}
-
+                        ? <div className={s.header__info}>{userLogin} - <Button onClick={onLogOut}
+                                                     className={s.header__button}>Log out</Button></div>
+                        : <Button href={'login'} className={s.header__button}>Log in</Button>}
                 </div>
             </div>
         </header>

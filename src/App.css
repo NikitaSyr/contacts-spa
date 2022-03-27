@@ -73,13 +73,14 @@ h1, h2, h3, h4, h5, h6 {
 /*_________________________*/
 
 .app{
-    background-color: #151A26;
-    color: #ECF2FF;
-    font-size: 20px;
+    background-color: #CFCFCF;
+    color: #151A26;
+    font-size: 18px;
     line-height: 1.4;
 }
+
 .app__wrapper{
-    background-color: #1D222E;
+    background-color: #FEFEFE;
     min-height: 100vh;
     text-align: center;
     overflow: hidden;

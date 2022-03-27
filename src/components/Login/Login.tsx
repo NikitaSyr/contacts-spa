@@ -2,20 +2,13 @@ import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getErrorMessage, logIn} from "../../redux/authReducer";
 import {useNavigate} from "react-router-dom";
-import {Form, Field} from 'react-final-form'
-// import {Input} from "../Common/FormsControls/FormsControls";
-import {requiredField} from "../../utils/validators/validators";
-// import {connect} from "react-redux";
-// import {login} from "../../redux/authReducer";
-// import {Navigate} from "react-router";
-import f from "./../Common/FormsControls/FormsControls.module.css"
-import s from "./Login.module.css"
 import {LogInFormType} from "../../types/types";
-import {Input} from "../Common/FormsControls/FormsControls";
+import {Button, Form, Input} from "antd";
+import s from "./Login.module.css"
 
 type PropsType = {
-    errorMessage: string
     onSubmit: (formData: LogInFormType) => void
+    errorMessage: string
 }
 
 type AppPropsType = {
@@ -25,64 +18,67 @@ type AppPropsType = {
 
 const LoginForm: React.FC<PropsType> = ({onSubmit, errorMessage}) => {
     return (
-        <Form onSubmit={onSubmit}>
-            {({handleSubmit}) => (
-                <form onSubmit={handleSubmit}>
-                    <div className={s.form__input}>
-                        <Field placeholder={"Email"}
-                               validate={requiredField}
-                               component={Input}
-                               name={"email"}/>
-                    </div>
-                    <div className={s.form__input}>
-                        <Field placeholder={"Password"}
-                               validate={requiredField}
-                               component={Input}
-                               type={"password"}
-                               name={"password"}/>
-                    </div>
-                    <div className={f.form__summaryError}>
-                        {errorMessage}
-                    </div>
-                    <div>
-                        <button className={s.form__button}>Login</button>
-                    </div>
-                </form>
-            )}
+        <Form
+            onFinish={onSubmit}
+            className={s.login__form}
+        >
+            <Form.Item
+                name="email"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your email',
+                    },
+                ]}>
+                <Input
+                    // prefix={<UserOutlined className="site-form-item-icon" />}
+                    placeholder="Email"/>
+            </Form.Item>
+            <Form.Item
+                name="password"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your password',
+                    },
+                ]}
+            >
+                <Input
+                    // prefix={<LockOutlined className="site-form-item-icon" />}
+                    type="password"
+                    placeholder="Password"
+                />
+            </Form.Item>
+            <Form.Item>
+                <Button type="primary" htmlType="submit"
+                        // className="login-form-button"
+                >
+                    Log in
+                </Button>
+            </Form.Item>
+            <div className={s.form__error}>
+                {(errorMessage.length > 0) && errorMessage}
+            </div>
         </Form>
     )
 }
 
 const Login: React.FC<AppPropsType> = ({isAuth}) => {
-    // const onSubmit = (formData) => {
-    //     props.login(formData.email, formData.password, formData.rememberMe, formData.captcha);
-    // }
     const navigate = useNavigate();
     const dispatch = useDispatch();
     let errorMessage = useSelector(getErrorMessage);
-    // dispatch(logIn(formData.email, formData.password))
-    const onSubmit = (formData: LogInFormType) => {
-
-        dispatch(logIn(formData.email, formData.password))
+    const onSubmit = (values: LogInFormType) => {
+        dispatch(logIn(values.email, values.password));
     }
-
     useEffect(() => {
-        if (isAuth){
+        if (isAuth) {
             return navigate("/contacts");
         }
-    },[isAuth, navigate]);
+    }, [isAuth, navigate]);
     return (
-        <div>
-            <div>Login</div>
+        <div className={s.login}>
             <LoginForm onSubmit={onSubmit} errorMessage={errorMessage}/>
         </div>
     )
 }
-// const mapStateToProps = (state) => ({
-//     isAuth: state.auth.isAuth,
-//     captchaUrl: state.auth.captchaUrl,
-//     errorMessage: state.auth.errorMessage,
-// })
-
-// export default connect(mapStateToProps, {login})(Login);
 export default Login;
