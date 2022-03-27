@@ -1,15 +1,13 @@
 import React, {useState} from 'react';
-// import Preloader from "../../Common/Preloader/Preloader";
 import s from './ContactItem.module.css';
 import {ContactType} from "../../../types/types";
-import Preloader from "../../Common/Preloader/Preloader";
 import {actions} from "../../../redux/contactsReducer";
 import {useDispatch} from "react-redux";
 import EditContactForm from "../ContactForms/EditContactForm";
 import {maxLengthCreator, requiredField} from "../../../utils/validators/validators";
 
 
-type PropsType = {
+interface PropsType  {
     contactId : number
     name : string
     surname : string

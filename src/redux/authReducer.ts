@@ -6,17 +6,22 @@ import {authAPI} from "../api/api";
 const SET_USER_DATA = "auth/SET_USER_DATA"
 const SET_ERROR_MESSAGE = "/auth/SET_ERROR_MESSAGE";
 
-const initialState = {
-    userId: null as (number | null),
-    login: null as string | null,
-    isAuth: false as boolean,
-    errorMessage: "" as string
-    // userList: [] as Array<UserType>,
-    // loginedUser: {} as <UserType>
+interface State {
+    userId: number | null,
+    login: string | null,
+    isAuth: boolean,
+    errorMessage: string,
+}
+
+const initialState: State = {
+    userId: null,
+    login: null,
+    isAuth: false,
+    errorMessage: "",
 }
 
 
-const authReducer = (state = initialState, action: ActionsTypes) => {
+const authReducer = (state = initialState, action: ActionsTypes): State => {
     switch (action.type) {
         case SET_USER_DATA: {
             return {
