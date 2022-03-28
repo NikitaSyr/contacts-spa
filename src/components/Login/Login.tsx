@@ -50,9 +50,7 @@ const LoginForm: React.FC<PropsType> = ({onSubmit, errorMessage}) => {
                 />
             </Form.Item>
             <Form.Item>
-                <Button type="primary" htmlType="submit"
-                        // className="login-form-button"
-                >
+                <Button type="primary" htmlType="submit">
                     Log in
                 </Button>
             </Form.Item>

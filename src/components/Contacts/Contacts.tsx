@@ -3,10 +3,10 @@ import s from './Contacts.module.css';
 import {useNavigate} from "react-router-dom";
 import ContactItem from "./ContactItem/ContactItem";
 import {useDispatch, useSelector} from "react-redux";
-import {actions, getContactsData } from "../../redux/contactsReducer";
+import {actions, getContactsData} from "../../redux/contactsReducer";
 import {ContactType} from "../../types/types";
-import {requiredField, maxLengthCreator} from "../../utils/validators/validators";
 import AddContactForm from "./ContactForms/AddContactForm";
+import {Button, Input} from "antd";
 
 type PropsType = {
     isAuth: boolean
@@ -30,7 +30,9 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
     const activateMode = (setter: Function) => {
         setter(true);
     }
-
+    const deactivateAddMode = () => {
+        setAddMode(false);
+    }
     const deleteContact = (contactId: number) => {
         dispatch(actions.deleteContactAC(contactId));
     }
@@ -55,31 +57,29 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
 
     return (
         <div className={s.contacts}>
-            <div>
-                <input
-                    onChange={onSearchTermChange}
-                    autoFocus={true}
-                    type="text"
-                    value={searchTerm}
-                />
-                <button onClick={() => {
-                    setSearchTerm("")
-                }
-                }
-                >
-                    Cancel search
-                </button>
+            <div className={s.contacts__row}>
+                <div className={s.contacts__search}>
+                    <Input onChange={onSearchTermChange} type="text"
+                          value={searchTerm} autoFocus={true}
+                          placeholder={"Type here to start search"}/>
+                    <Button onClick={() => {
+                        setSearchTerm("")
+                    }}>
+                        Cancel search
+                    </Button>
+                </div>
             </div>
             <div className={s.contacts__row}>
+                <div className={s.contacts__list}>
+                    {contactItemsList}
+                </div>
             </div>
-
-            {contactItemsList}
             <div className={s.contacts__row}>
                 {addMode
-                    ? <AddContactForm addContact={addContact} validators={[requiredField, maxLengthCreator]}/>
-                    : <button onClick={() => {
+                    ? <AddContactForm addContact={addContact} deactivateAddMode={deactivateAddMode}/>
+                    : <Button onClick={() => {
                         activateMode(setAddMode)
-                    }}>Add contact</button>}
+                    }}>Add contact</Button>}
             </div>
         </div>
     )

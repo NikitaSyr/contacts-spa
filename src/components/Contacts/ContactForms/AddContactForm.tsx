@@ -1,50 +1,78 @@
-import s from "../Contacts.module.css";
+import s from "./../ContactItem/ContactItem.module.css";
 import React from "react";
-import {Form, Field} from 'react-final-form'
 import {ContactType} from "../../../types/types";
-import {composeValidators, requiredField, maxLengthCreator} from "../../../utils/validators/validators";
-import {Input} from "../../Common/FormsControls/FormsControls";
+import {Button, Form, Input} from "antd";
 
 type PropsType = {
     addContact: (contactData: ContactType) => void
-    // addContact: Function
-    validators: Array<Function>
+    deactivateAddMode: () => void
 }
 
-const AddContactForm: React.FC<PropsType> = ({addContact, validators }) => {
+const AddContactForm: React.FC<PropsType> = ({addContact, deactivateAddMode}) => {
     return (
-        <Form onSubmit={addContact} validators={validators}>
-            {({handleSubmit}) => (
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        Name: <Field validate={composeValidators(requiredField, maxLengthCreator(50))}
-                               component={Input}
-                               name="name"/>
-                    </div>
-                    <div>
-                        Surname: <Field validate={maxLengthCreator(50)}
-                               component={Input}
-                               name="surname"/>
-                    </div>
-                    <div>
-                        Image: <Field validate={maxLengthCreator(500)}
-                               component={Input}
-                               placeholder={"URL link"}
-                               name="image"/>
-                    </div>
-                    <div>
-                        Phone number: <Field validate={composeValidators(requiredField, maxLengthCreator(15))}
-                               component={Input}
-                               name="phone"/>
-                    </div>
-                    <div>
-                        <button>
-                            Save contact
-                        </button>
-                    </div>
-                </form>
-            )}
-        </Form>
+        <div className={s.list__item}>
+            <Form
+                className={s.item__data}
+                onFinish={addContact}
+                size={"small"}
+            >
+                <Form.Item
+                    name="name"
+                    rules={[
+                        {
+                            required: true,
+                            // message: 'Please input contact name',
+                            max: 30
+                        },
+                    ]}>
+                    <Input
+                        placeholder="Name"
+                    />
+                </Form.Item>
+                <Form.Item
+                    name="surname"
+                    rules={[
+                        {
+                            max: 30
+                        },
+                    ]}
+                >
+                    <Input
+                        placeholder="Surname"/>
+                </Form.Item>
+                <Form.Item
+                    name="image"
+                    rules={[
+                        {
+                            max: 150
+                        }
+                    ]}
+                >
+                    <Input
+                        placeholder="URL link"/>
+                </Form.Item>
+                <Form.Item
+                    name="phone"
+                    rules={[
+                        {
+                            required: true,
+                            // message: 'Please input contact phone',
+                            max: 30
+                        },
+                    ]}>
+                    <Input
+                        placeholder='phone number'/>
+                </Form.Item>
+                <Form.Item>
+                    <Button htmlType="submit">
+                        Save contact
+                    </Button>
+                    <Button onClick={deactivateAddMode}>
+                        Cancel adding
+                    </Button>
+                </Form.Item>
+            </Form>
+        </div>
     )
 };
 

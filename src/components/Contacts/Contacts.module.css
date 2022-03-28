@@ -1,9 +1,39 @@
-.contacts{
+.contacts {
     height: 100%;
+    width: 100%;
 }
-.contacts__row{
-    /*display: flex;*/
-    /*flex-wrap: wrap;*/
-    /*justify-content: space-evenly;*/
+
+.contacts__row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin: 2% 5%;
     /*height: 100%;*/
 }
+
+.contacts__search {
+    /*min-width: 190px;*/
+    flex: 0 1 50%;
+    display: flex;
+    flex-direction: row;
+}
+
+.contacts__list {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+@media all and (max-width: 600px) {
+    .contacts__search {
+        flex: 0 1 80%;
+    }
+}
+
+@media all and (max-width: 360px) {
+    .contacts__search {
+        flex: 0 1 95%;
+    }
+}
+
