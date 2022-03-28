@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from "react";
+import React, {FC, useCallback, useEffect, useState} from "react";
 import s from './Contacts.module.css';
 import {useNavigate} from "react-router-dom";
 import ContactItem from "./ContactItem/ContactItem";
@@ -24,8 +24,9 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
         const {name, surname, image, phone} = contactData;
         const uniqId = Date.now();
         dispatch(actions.addContactAC(uniqId, name, surname, image, phone));
-        setAddMode(false);
+        setAddMode(false)
     }
+
 
     const activateMode = (setter: Function) => {
         setter(true);
@@ -33,9 +34,11 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
     const deactivateAddMode = () => {
         setAddMode(false);
     }
-    const deleteContact = (contactId: number) => {
-        dispatch(actions.deleteContactAC(contactId));
-    }
+    const deleteContact = useCallback(
+        (contactId: number) => {
+            dispatch(actions.deleteContactAC(contactId));
+        }, [dispatch]
+    )
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -60,8 +63,8 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
             <div className={s.contacts__row}>
                 <div className={s.contacts__search}>
                     <Input onChange={onSearchTermChange} type="text"
-                          value={searchTerm} autoFocus={true}
-                          placeholder={"Type here to start search"}/>
+                           value={searchTerm} autoFocus={true}
+                           placeholder={"Type here to start search"}/>
                     <Button onClick={() => {
                         setSearchTerm("")
                     }}>

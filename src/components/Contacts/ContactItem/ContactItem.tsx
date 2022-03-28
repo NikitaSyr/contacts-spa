@@ -66,4 +66,4 @@ const ContactItem: React.FC<PropsType> = ({contactId, name, surname, image, phon
     )
 }
 
-export default ContactItem;
+export default React.memo(ContactItem);
