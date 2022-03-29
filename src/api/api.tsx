@@ -18,7 +18,7 @@ const userObjectCreator = (userId: number, login: string, isAuth: boolean) => {
 
 const loginFlow = (responseLength: number, email: string, password: string, users: Array<UserType>) => {
     for (let i = 0; i < responseLength; i++) {
-        if (email === users[i].email) {
+        if (email.toLowerCase() === users[i].email.toLowerCase()) {
             if (password === users[i].password) {
                 return userObjectCreator(users[i].id, users[i].login, true);
             }
