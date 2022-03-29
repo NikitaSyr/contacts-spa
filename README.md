@@ -32,6 +32,6 @@ npm install axios@0.26.1 react-redux@7.2.6 react-router-dom@6.2.2 redux@4.1.2 re
 json-server --watch db.json --port 4000
 
 Открыть второй терминал и запустить проект:
-  yarn start
-  или
-  npm start
+ yarn start
+ или
+ npm start
