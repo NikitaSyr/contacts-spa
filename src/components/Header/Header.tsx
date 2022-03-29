@@ -19,7 +19,7 @@ const Header: React.FC<PropsType> = ({isAuth}) => {
             <div className={s.header__row}>
                 <div className={s.header__column}>
                     {isAuth &&
-                        <Button href={'contacts'} className={s.header__button}>Contacts</Button>}
+                        <Button href={'#/contacts'} className={s.header__button}>Contacts</Button>}
                 </div>
                 <div className={s.header__column}>
                     {isAuth
@@ -32,7 +32,7 @@ const Header: React.FC<PropsType> = ({isAuth}) => {
 
                         // <div className={s.header__info}>{userLogin} - <Button onClick={onLogOut}
                         //                              className={s.header__button}>Log out</Button></div>
-                        : <Button href={'login'} className={s.header__button}>Log in</Button>}
+                        : <Button href={'#/login'} className={s.header__button}>Log in</Button>}
                 </div>
             </div>
         </header>
