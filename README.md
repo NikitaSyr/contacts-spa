@@ -20,13 +20,21 @@
 * Для роутинга использована библиотека react-router-dom.
 
 Для запуска локальной верссии приложения необходимо клонировать репозиторий, а затем в терминале выполнить следующую команду:  
- yarn add axios@0.26.1 react-redux@7.2.6 react-router-dom@6.2.2 redux@4.1.2 redux-persist@6.0.0 redux-thunk@2.4.1 antd@4.19.4
- или  
- npm install axios@0.26.1 react-redux@7.2.6 react-router-dom@6.2.2 redux@4.1.2 redux-persist@6.0.0 redux-thunk@2.4.1 antd@4.19.4
+
+yarn add axios@0.26.1 react-redux@7.2.6 react-router-dom@6.2.2 redux@4.1.2 redux-persist@6.0.0 redux-thunk@2.4.1 antd@4.19.4
+
+или  
+
+npm install axios@0.26.1 react-redux@7.2.6 react-router-dom@6.2.2 redux@4.1.2 redux-persist@6.0.0 redux-thunk@2.4.1 antd@4.19.4
 
 Затем в одном терминале прописать:
- json-server --watch db.json --port 4000
- Открыть второй терминал и запустить проект:
- yarn start
- или
- npm start
+
+json-server --watch db.json --port 4000
+
+Открыть второй терминал и запустить проект:
+
+yarn start
+
+или
+
+npm start
