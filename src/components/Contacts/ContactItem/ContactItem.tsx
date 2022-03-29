@@ -4,7 +4,7 @@ import {ContactType} from "../../../types/types";
 import {actions} from "../../../redux/contactsReducer";
 import {useDispatch} from "react-redux";
 import EditContactForm from "../ContactForms/EditContactForm";
-import {Button, message, Popconfirm} from "antd";
+import {Button, message, Popconfirm, Card} from "antd";
 import defaultUser from '../../../assets/img/user_profile_default.png';
 
 interface PropsType {
@@ -50,9 +50,6 @@ const ContactItem: React.FC<PropsType> = ({
     // };
 
 
-
-
-
     const DeleteButton = () => {
         return (
             <>
@@ -62,7 +59,7 @@ const ContactItem: React.FC<PropsType> = ({
                     okText="Yes"
                     cancelText="No"
                 >
-                    <Button danger={true}>Delete</Button>
+                    <Button danger={true} className={s.button__delete }>Delete</Button>
                 </Popconfirm>
             </>
         )
@@ -74,23 +71,44 @@ const ContactItem: React.FC<PropsType> = ({
                                                                  name={name} surname={surname} image={image}
                                                                  phone={phone} deactivateEditMode={deactivateEditMode}/>
                     <DeleteButton/></div>
-                : <div className={s.item__info}>
-                    <div><img src={image ? image : defaultUser} alt=""
-                              onError={e => {
-                                  e.currentTarget.src = defaultUser;
-                              }}
-                              className={s.item__image}/></div>
-                    <div className={s.item__data}>
-                        <div className={s.item__name}>{name} {surname}</div>
-                        <div>{phone}</div>
-                        <div className={s.item__buttons}><Button onClick={() => {
-                            activateEditMode()
-                        }}
-                        >Edit contact
-                        </Button>
-                            <DeleteButton/></div>
-                    </div>
-                </div>}
+                :
+                <Card
+                    className={s.item__info}
+                    hoverable
+                    cover={<img src={image ? image : defaultUser} alt=""
+                                onError={e => {
+                                    e.currentTarget.src = defaultUser;
+                                }}
+                                className={s.item__image}/>}
+                >
+                    {/*<Meta title={{name} + " " + {surname}} description={phone}/>*/}
+                    <div className={s.item__name}>{name} {surname}</div>
+                    <div>{phone}</div>
+                    <Button onClick={() => {
+                        activateEditMode()
+                    }}
+                    >Edit contact
+                    </Button>
+                    <DeleteButton/>
+                </Card>
+                // <div className={s.item__info}>
+                //     <div><img src={image ? image : defaultUser} alt=""
+                //               onError={e => {
+                //                   e.currentTarget.src = defaultUser;
+                //               }}
+                //               className={s.item__image}/></div>
+                //     <div className={s.item__data}>
+                //         <div className={s.item__name}>{name} {surname}</div>
+                //         <div>{phone}</div>
+                //         <div className={s.item__buttons}><Button onClick={() => {
+                //             activateEditMode()
+                //         }}
+                //         >Edit contact
+                //         </Button>
+                //             <DeleteButton/></div>
+                //     </div>
+                // </div>
+            }
         </div>
     )
 }

@@ -10,7 +10,7 @@ type PropsType = {
 
 const AddContactForm: React.FC<PropsType> = ({addContact, deactivateAddMode}) => {
     return (
-        <div className={s.list__item}>
+        <div>
             <Form
                 className={s.item__data}
                 onFinish={addContact}

@@ -90,7 +90,7 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 0.5%;
 }
 
-@media all and (min-width: 1000px) {
+@media all and (min-width: 1042px) {
     .app__wrapper{
         margin: 0 15%;
     }

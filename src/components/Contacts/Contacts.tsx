@@ -60,7 +60,7 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
 
     return (
         <div className={s.contacts}>
-            <div className={s.contacts__row}>
+            {/*<div className={s.contacts__row}>*/}
                 <div className={s.contacts__search}>
                     <Input onChange={onSearchTermChange} type="text"
                            value={searchTerm} autoFocus={true}
@@ -71,11 +71,11 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
                         Cancel search
                     </Button>
                 </div>
-            </div>
+            {/*</div>*/}
             <div className={s.contacts__row}>
-                <div className={s.contacts__list}>
+                {/*<div className={s.contacts__list}>*/}
                     {contactItemsList}
-                </div>
+
             </div>
             <div className={s.contacts__row}>
                 {addMode
