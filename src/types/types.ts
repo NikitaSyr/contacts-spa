@@ -3,7 +3,7 @@ export type UserType = {
     login : string
     email : string
     password : string
-    isAuth: boolean
+    // isAuth: boolean
 }
 
 export type LogInFormType = {

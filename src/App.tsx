@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
-import {Routes, Route, BrowserRouter} from "react-router-dom";
+import {Routes, Route, HashRouter} from "react-router-dom";
 import Login from "./components/Login/Login";
 import Contacts from "./components/Contacts/Contacts";
 import { useSelector} from "react-redux";
@@ -11,7 +11,7 @@ import 'antd/dist/antd.css';
 function App() {
     const isAuth = useSelector(getUserAuth);
     return (
-        <BrowserRouter>
+        <HashRouter>
             <div className="app">
                 <div className="app__wrapper">
                     <div className="content">
@@ -27,7 +27,7 @@ function App() {
                     </div>
                 </div>
             </div>
-        </BrowserRouter>
+        </HashRouter>
 
     );
 }
