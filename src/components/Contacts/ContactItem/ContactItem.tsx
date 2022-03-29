@@ -4,7 +4,7 @@ import {ContactType} from "../../../types/types";
 import {actions} from "../../../redux/contactsReducer";
 import {useDispatch} from "react-redux";
 import EditContactForm from "../ContactForms/EditContactForm";
-import {Button, Modal} from "antd";
+import {Button, message, Popconfirm} from "antd";
 import defaultUser from '../../../assets/img/user_profile_default.png';
 
 interface PropsType {
@@ -20,8 +20,8 @@ const ContactItem: React.FC<PropsType> = ({
                                               contactId, name, surname, image, phone,
                                               deleteContact
                                           }) => {
-    let [editMode, setEditMode] = useState(false);
-    const [visible, setVisible] = React.useState(false);
+    const [editMode, setEditMode] = useState(false);
+    // const [visible, setVisible] = React.useState(false);
     const dispatch = useDispatch();
     const activateEditMode = () => {
         setEditMode(true);
@@ -35,32 +35,36 @@ const ContactItem: React.FC<PropsType> = ({
         setEditMode(false);
     }
 
-    const showModal = () => {
-        setVisible(true);
-    };
+    // const showModal = () => {
+    //     setVisible(true);
+    // };
 
     const handleOk = () => {
         deleteContact(contactId)
-        setVisible(false);
+        message.success('Contact deleted');
+        // setVisible(false);
     };
 
-    const handleCancel = () => {
-        setVisible(false);
-    };
+    // const handleCancel = () => {
+    //     setVisible(false);
+    // };
+
+
+
+
+
     const DeleteButton = () => {
         return (
-            <><Button onClick={showModal}
-                      danger={true}
-                      className={s.item__delete}
-            >Delete contact
-            </Button>
-                <Modal
-                    visible={visible}
-                    onOk={handleOk}
-                    onCancel={handleCancel}
+            <>
+                <Popconfirm
+                    title="Are you sure want to delete this contact?"
+                    onConfirm={handleOk}
+                    okText="Yes"
+                    cancelText="No"
                 >
-                    <div>Are you sure want to delete this contact?</div>
-                </Modal></>
+                    <Button danger={true}>Delete</Button>
+                </Popconfirm>
+            </>
         )
     }
     return (
