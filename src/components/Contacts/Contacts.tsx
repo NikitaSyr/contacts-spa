@@ -27,7 +27,6 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
         setAddMode(false)
     }
 
-
     const activateMode = (setter: Function) => {
         setter(true);
     }
@@ -46,7 +45,6 @@ const Contacts: FC<PropsType> = ({isAuth}) => {
             return navigate("/login");
         }
     }, [isAuth, navigate]);
-
 
     const onSearchTermChange = (e: { currentTarget: HTMLInputElement }) => {
         setSearchTerm(e.currentTarget.value);

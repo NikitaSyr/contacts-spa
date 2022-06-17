@@ -15,7 +15,6 @@ type AppPropsType = {
     isAuth: boolean
 }
 
-
 const LoginForm: React.FC<PropsType> = ({onSubmit, errorMessage}) => {
     return (
         <Form
