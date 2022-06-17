@@ -10,6 +10,7 @@ import 'antd/dist/antd.css';
 
 function App() {
     const isAuth = useSelector(getUserAuth);
+
     return (
         <HashRouter>
             <div className="app">
